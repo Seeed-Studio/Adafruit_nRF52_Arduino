@@ -43,17 +43,17 @@ extern "C"
 #define PIN_BUTTON1          (PINS_COUNT)
 
 //Digital PINs
-#define D0 (0ul)
-#define D1 (1ul)
-#define D2 (2ul)
-#define D3 (3ul)
-#define D4 (4ul)
-#define D5 (5ul)
-#define D6 (6ul)
-#define D7 (7ul)
-#define D8 (8ul)
-#define D9 (9ul)
-#define D10 (10ul)
+static const uint8_t D0  = 0 ;
+static const uint8_t D1  = 1 ;
+static const uint8_t D2  = 2 ;
+static const uint8_t D3  = 3 ;
+static const uint8_t D4  = 4 ;
+static const uint8_t D5  = 5 ;
+static const uint8_t D6  = 6 ;
+static const uint8_t D7  = 7 ;
+static const uint8_t D8  = 8 ;
+static const uint8_t D9  = 9 ;
+static const uint8_t D10 = 10;
 
 /*
  * Analog pins
