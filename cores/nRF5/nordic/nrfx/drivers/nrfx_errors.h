@@ -50,7 +50,7 @@
 
 /** @brief Enumerated type for error codes. */
 typedef enum {
-    NRFX_SUCCESS                    = (NRFX_ERROR_BASE_NUM + 0),  ///< Operation performed successfully.
+    NRFX_SUCCESS                    = (0),  ///< Operation performed successfully.
     NRFX_ERROR_INTERNAL             = (NRFX_ERROR_BASE_NUM + 1),  ///< Internal error.
     NRFX_ERROR_NO_MEM               = (NRFX_ERROR_BASE_NUM + 2),  ///< No memory for operation.
     NRFX_ERROR_NOT_SUPPORTED        = (NRFX_ERROR_BASE_NUM + 3),  ///< Not supported.
