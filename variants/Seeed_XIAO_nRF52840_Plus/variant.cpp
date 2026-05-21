@@ -47,16 +47,16 @@ const uint32_t g_ADigitalPinMap[] =
     22, // D37 is P0.22 (QSPI_SIO_2 WP)
     23, // D38 is P0.23 (QSPI_SIO_3 HOLD)
 
-    // D11 ~ D20
+    // D11 ~ D19
     15, // D11 is P0.15 (i2s_sd)
     19, // D12 is P0.19 (i2s_sck)
     33, // D13 is P1.1  (i2s_ws)
-     9, // D15 is P0.09 (nfc1)
-    10, // D16 is P0.10 (nfc2)
-    31, // D18 is P0.31 (VBAT)
-    39, // D19 is P1.07 (MOSI1)
-    37, // D20 is P1.05 (MISO1)
-    35, // D21 is P1.03 (SCK1)
+     9, // D14 is P0.09 (nfc1)
+    10, // D15 is P0.10 (nfc2)
+    31, // D16 is P0.31 (VBAT)
+    39, // D17 is P1.07 (MOSI1)
+    37, // D18 is P1.05 (MISO1)
+    35, // D19 is P1.03 (SCK1)
 };
 
 void initVariant()
