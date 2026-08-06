@@ -72,11 +72,23 @@ class Advertisable
 class BLEAdvertisingData
 {
 protected:
-  uint8_t _data[BLE_GAP_ADV_SET_DATA_SIZE_MAX];
-  uint8_t _count;
+  uint8_t* _data;
+  uint8_t  _max_len;
+  uint8_t  _count;
 
 public:
   BLEAdvertisingData(void);
+  ~BLEAdvertisingData(void);
+
+  // Class owns a heap buffer; disable copy to prevent shallow-copy / double-free.
+  BLEAdvertisingData(const BLEAdvertisingData&)            = delete;
+  BLEAdvertisingData& operator=(const BLEAdvertisingData&) = delete;
+
+  // Resize the internal buffer (heap-allocated). Defaults to BLE_GAP_ADV_SET_DATA_SIZE_MAX (31).
+  // For extended advertising use BLE_GAP_ADV_SET_DATA_SIZE_EXTENDED_CONNECTABLE_MAX_SUPPORTED (238)
+  // or BLE_GAP_ADV_SET_DATA_SIZE_EXTENDED_MAX_SUPPORTED (255).
+  // Reallocates the buffer; any previously added data is discarded.
+  void setMaxLen(uint8_t max_len);
 
   /*------------- Adv Data -------------*/
   bool addData(uint8_t type, const void* data, uint8_t len);
@@ -120,6 +132,8 @@ public:
 
   BLEAdvertising(void);
 
+  // Sets the advertising type and resizes the internal buffer accordingly
+  // (extended types -> larger buffer, legacy types -> 31-byte buffer).
   void setType(uint8_t adv_type);
   void setFastTimeout(uint16_t sec);
 
@@ -129,12 +143,23 @@ public:
   void setInterval  (uint16_t fast, uint16_t slow);
   void setIntervalMS(uint16_t fast, uint16_t slow);
 
+  void setMaxEvents(uint8_t maxEvents);
+  void setFilter(uint8_t filter);
+  void setPhy(uint8_t phy);
+
   uint16_t getInterval(void);
 
   bool setBeacon(BLEBeacon& beacon);
   bool setBeacon(EddyStoneUrl& eddy_url);
 
+  // Advertise to a single peer instead of broadcasting
+  void setPeerAddress(const ble_gap_addr_t& peer_addr);
+
   bool isRunning(void);
+  bool isScannable(void);
+  bool isConnectable(void);
+  bool isDirected(void);
+  bool isExtended(void);
 
   void restartOnDisconnect(bool enable);
   bool start(uint16_t timeout = 0);
@@ -150,8 +175,13 @@ public:
 private:
   uint8_t  _hdl;
   uint8_t  _type;
+  uint8_t  _max_events = 0; // initially time limited
+  uint8_t  _filter = BLE_GAP_ADV_FP_ANY;
+  uint8_t  _primary_phy = BLE_GAP_PHY_AUTO;
+  uint8_t  _secondary_phy = BLE_GAP_PHY_AUTO;
   bool     _start_if_disconnect;
-  bool     _runnning;
+  bool     _running;
+  ble_gap_addr_t _peer_addr; //! Target address for an ADV_DIRECT_IND advertisement
 
   uint32_t _conn_mask;
 
